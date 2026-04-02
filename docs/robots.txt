@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://caramelo-papelaria.github.io/sitemap.xml

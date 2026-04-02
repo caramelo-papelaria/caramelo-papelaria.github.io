@@ -12,9 +12,25 @@
     <meta property="og:title" content="{{ config.meta.title }}">
     <meta property="og:site_name" content="{{ config.meta.title }}">
     <meta property="og:description" content="{{ config.meta.description }}">
+    <meta property="og:url" content="{{ config.meta.siteUrl }}">
+    <meta property="og:type" content="website">
     <meta property="og:locale" content="{{ config.meta.lang }}">
+    <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="{{ config.meta.title }}">
     <meta name="twitter:description" content="{{ config.meta.description }}">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Store",
+      "name": "{{ config.meta.title }}",
+      "description": "{{ config.meta.description }}",
+      "url": "{{ config.meta.siteUrl }}",
+      "sameAs": [{% for link in config.links %}
+        "{{ link.url }}"{% if not loop.last %},{% endif %}{% endfor %}
+
+      ]
+    }
+    </script>
 </head>
 <body>
     <header>
