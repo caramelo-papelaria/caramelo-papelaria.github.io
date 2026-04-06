@@ -1,6 +1,6 @@
 /* ============================================================
-   Páscoa Theme — Caramelo Papelaria
-   Paleta: amarelo, lilás, verde menta, azul bebê, rosa
+   Dia das Mães Theme — Caramelo Papelaria
+   Paleta: rosa, lavanda, dourado, branco
    ============================================================ */
 
 *, *::before, *::after {
@@ -10,31 +10,27 @@
 }
 
 :root {
-  --yellow:      #f9d84a;
-  --yellow-lt:   #fdf0a0;
-  --yellow-pale: #fffbe8;
-  --lilac:       #c9a0e8;
-  --lilac-lt:    #e8d8f8;
-  --mint:        #7ddbb8;
-  --mint-lt:     #c0f0de;
-  --mint-pale:   #e8faf4;
-  --blue:        #90c8f0;
-  --blue-lt:     #d0ecff;
-  --pink:        #f0a0c8;
-  --pink-lt:     #fcd8ec;
-  --cream:       #fffdf5;
+  --pink:        #f48fb1;
+  --pink-lt:     #fce4ec;
+  --pink-pale:   #fff0f5;
+  --rose:        #e91e8c;
+  --rose-lt:     #f8bbd9;
+  --lavender:    #ce93d8;
+  --lavender-lt: #f3e5f5;
+  --gold:        #f9c84a;
+  --gold-lt:     #fff8e1;
+  --cream:       #fffdf8;
   --white:       #ffffff;
-  --text:        #4a3520;
-  --text-muted:  #a08060;
-  --shadow:      0 8px 40px rgba(100, 160, 80, 0.15);
-  --shadow-btn:  0 4px 18px rgba(124, 219, 184, 0.35);
+  --text:        #5a2d4a;
+  --text-muted:  #a06080;
+  --shadow:      0 8px 40px rgba(244, 143, 177, 0.2);
+  --shadow-btn:  0 4px 18px rgba(233, 30, 140, 0.2);
   --radius-card: 32px;
   --radius-btn:  50px;
   --font-display: 'Pacifico', cursive;
   --font-body:    'Quicksand', system-ui, sans-serif;
 }
 
-/* ── Canvas ── */
 #bg-canvas {
   position: fixed;
   inset: 0;
@@ -43,7 +39,6 @@
   z-index: 0;
 }
 
-/* ── Layout ── */
 body {
   min-height: 100vh;
   display: flex;
@@ -55,63 +50,64 @@ body {
   overflow-x: hidden;
 }
 
-/* ── Card ── */
 .card {
   position: relative;
   z-index: 1;
   width: 100%;
   max-width: 420px;
-  background: rgba(255, 253, 245, 0.88);
+  background: rgba(255, 253, 248, 0.90);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 2px solid rgba(249, 216, 74, 0.5);
+  border: 2px solid rgba(244, 143, 177, 0.5);
   border-radius: var(--radius-card);
   box-shadow: var(--shadow);
   padding: 2rem 2rem 1.75rem;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  margin-top: 2rem; /* space for ears */
+  margin-top: 2rem;
 }
 
-/* ── Bunny ears ── */
-.ears {
+/* ── Flower Crown ── */
+.flower-crown {
   position: absolute;
-  top: -52px;
+  top: -46px;
   left: 50%;
   transform: translateX(-50%);
   width: 160px;
-  height: 60px;
+  height: 50px;
   z-index: 2;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 4px;
 }
 
-.ear {
-  position: absolute;
-  width: 36px;
-  height: 58px;
-  background: var(--pink-lt);
-  border: 2px solid var(--pink);
+.petal {
+  width: 22px;
+  height: 34px;
   border-radius: 50% 50% 40% 40%;
+  position: relative;
   bottom: 0;
 }
 
-.ear::after {
+.petal:nth-child(1) { background: var(--pink);      transform: rotate(-30deg) translateY(4px); }
+.petal:nth-child(2) { background: var(--lavender);  transform: rotate(-15deg) translateY(2px); }
+.petal:nth-child(3) { background: var(--rose-lt);   transform: rotate(0deg);                   width: 26px; height: 38px; }
+.petal:nth-child(4) { background: var(--lavender);  transform: rotate(15deg) translateY(2px);  }
+.petal:nth-child(5) { background: var(--pink);      transform: rotate(30deg) translateY(4px);  }
+
+.petal::after {
   content: '';
   position: absolute;
-  width: 18px;
-  height: 38px;
-  background: var(--pink);
+  width: 60%;
+  height: 60%;
+  background: rgba(255,255,255,0.4);
   border-radius: 50%;
-  top: 8px;
-  left: 50%;
-  transform: translateX(-50%);
-  opacity: 0.5;
+  top: 15%;
+  left: 20%;
 }
 
-.ear-left  { left: 20px;  transform: rotate(-10deg); }
-.ear-right { right: 20px; transform: rotate(10deg);  }
-
-/* ── Header ── */
 header {
   display: flex;
   flex-direction: column;
@@ -132,28 +128,28 @@ header {
   border-radius: 50%;
   object-fit: cover;
   border: 3px solid var(--white);
-  box-shadow: 0 0 0 3px var(--yellow), 0 0 0 6px var(--mint-lt);
+  box-shadow: 0 0 0 3px var(--pink), 0 0 0 6px var(--pink-lt);
   position: relative;
   z-index: 1;
 }
 
-.egg-ring {
+.floral-ring {
   position: absolute;
   inset: -6px;
   border-radius: 50%;
   background: conic-gradient(
-    var(--yellow),
-    var(--mint),
-    var(--lilac),
     var(--pink),
-    var(--blue),
-    var(--yellow)
+    var(--gold),
+    var(--lavender),
+    var(--rose-lt),
+    var(--pink-lt),
+    var(--pink)
   );
-  animation: spin-egg 8s linear infinite;
+  animation: spin-floral 8s linear infinite;
   z-index: 0;
 }
 
-@keyframes spin-egg {
+@keyframes spin-floral {
   to { transform: rotate(360deg); }
 }
 
@@ -171,14 +167,12 @@ h1 {
   font-weight: 500;
 }
 
-/* ── Links ── */
 .links {
   display: flex;
   flex-direction: column;
   gap: 0.85rem;
 }
 
-/* Cycle egg colors per button via nth-child */
 .link-item {
   display: flex;
   align-items: center;
@@ -197,11 +191,11 @@ h1 {
   border: 2px solid transparent;
 }
 
-.link-item:nth-child(1) { border-color: var(--yellow);  }
-.link-item:nth-child(2) { border-color: var(--mint);    }
-.link-item:nth-child(3) { border-color: var(--lilac);   }
-.link-item:nth-child(4) { border-color: var(--pink);    }
-.link-item:nth-child(5) { border-color: var(--blue);    }
+.link-item:nth-child(1) { border-color: var(--pink);      }
+.link-item:nth-child(2) { border-color: var(--lavender);  }
+.link-item:nth-child(3) { border-color: var(--rose-lt);   }
+.link-item:nth-child(4) { border-color: var(--gold);      }
+.link-item:nth-child(5) { border-color: var(--pink-lt);   }
 
 .link-item::before {
   content: '';
@@ -212,16 +206,16 @@ h1 {
   border-radius: inherit;
 }
 
-.link-item:nth-child(1)::before { background: var(--yellow-pale); }
-.link-item:nth-child(2)::before { background: var(--mint-pale);   }
-.link-item:nth-child(3)::before { background: var(--lilac-lt);    }
-.link-item:nth-child(4)::before { background: var(--pink-lt);     }
-.link-item:nth-child(5)::before { background: var(--blue-lt);     }
+.link-item:nth-child(1)::before { background: var(--pink-pale);    }
+.link-item:nth-child(2)::before { background: var(--lavender-lt);  }
+.link-item:nth-child(3)::before { background: var(--pink-pale);    }
+.link-item:nth-child(4)::before { background: var(--gold-lt);      }
+.link-item:nth-child(5)::before { background: var(--pink-lt);      }
 
 .link-item:hover,
 .link-item:focus {
   transform: translateY(-3px) scale(1.01);
-  box-shadow: 0 10px 28px rgba(100, 160, 80, 0.2);
+  box-shadow: 0 10px 28px rgba(233, 30, 140, 0.18);
   outline: none;
 }
 
@@ -230,7 +224,7 @@ h1 {
   opacity: 1;
 }
 
-.link-egg {
+.link-icon {
   font-size: 1rem;
   position: relative;
   z-index: 1;
@@ -257,7 +251,6 @@ h1 {
   transform: translateX(3px);
 }
 
-/* ── Footer ── */
 footer {
   text-align: center;
   display: flex;
@@ -268,7 +261,7 @@ footer {
 .message {
   font-family: var(--font-display);
   font-size: 1rem;
-  color: var(--mint);
+  color: var(--rose);
   letter-spacing: 0.02em;
 }
 
@@ -277,7 +270,6 @@ footer small {
   color: var(--text-muted);
 }
 
-/* ── Scrollbar ── */
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--yellow-lt); border-radius: 4px; }
+::-webkit-scrollbar-thumb { background: var(--pink-lt); border-radius: 4px; }

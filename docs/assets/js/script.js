@@ -2,22 +2,21 @@
 const yearEl = document.querySelector(".year");
 if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-// ── Animated background: bouncing Easter eggs & bunnies ──
+// ── Animated background: falling rose petals & flowers ──
 (function () {
   const canvas = document.getElementById("bg-canvas");
   if (!canvas) return;
   const ctx = canvas.getContext("2d");
 
-  const BG_TOP    = "#fffbe8";
-  const BG_BOTTOM = "#e8f8f0";
+  const BG_TOP    = "#fff0f5";
+  const BG_BOTTOM = "#f8e8f8";
 
-  // Egg fill colors (pastel pairs: fill, stripe)
-  const EGG_PALETTES = [
-    ["rgba(249,216,74,0.7)",  "rgba(255,255,255,0.5)"],
-    ["rgba(201,160,232,0.65)","rgba(255,255,255,0.5)"],
-    ["rgba(125,219,184,0.65)","rgba(255,255,255,0.5)"],
-    ["rgba(144,200,240,0.65)","rgba(255,255,255,0.5)"],
-    ["rgba(240,160,200,0.65)","rgba(255,255,255,0.5)"],
+  const PETAL_COLORS = [
+    "rgba(244,143,177,0.7)",
+    "rgba(206,147,216,0.65)",
+    "rgba(233,30,140,0.5)",
+    "rgba(248,187,217,0.7)",
+    "rgba(249,200,74,0.6)",
   ];
 
   let W, H, particles;
@@ -31,30 +30,27 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
     constructor() { this.reset(true); }
 
     reset(initial = false) {
-      this.x         = Math.random() * W;
-      this.y         = initial ? Math.random() * H : H + 40;
-      this.speedY    = 0.4 + Math.random() * 0.6;
-      this.speedX    = (Math.random() - 0.5) * 0.4;
-      this.wobble    = Math.random() * Math.PI * 2;
-      this.wobbleSpd = 0.008 + Math.random() * 0.012;
-      this.rotation  = Math.random() * Math.PI * 2;
-      this.rotSpeed  = (Math.random() - 0.5) * 0.02;
-      this.alpha     = 0.5 + Math.random() * 0.4;
-      this.palette   = EGG_PALETTES[Math.floor(Math.random() * EGG_PALETTES.length)];
-
-      const types = ["egg", "egg", "egg", "egg", "bunny", "star"];
-      this.type = types[Math.floor(Math.random() * types.length)];
-      this.size = this.type === "bunny"
-        ? 18 + Math.random() * 14
-        : 12 + Math.random() * 20;
+      this.x        = Math.random() * W;
+      this.y        = initial ? Math.random() * H : -30;
+      this.speedY   = 0.5 + Math.random() * 0.8;
+      this.speedX   = (Math.random() - 0.5) * 0.5;
+      this.wobble   = Math.random() * Math.PI * 2;
+      this.wobbleSpd= 0.01 + Math.random() * 0.015;
+      this.rotation = Math.random() * Math.PI * 2;
+      this.rotSpeed = (Math.random() - 0.5) * 0.03;
+      this.alpha    = 0.5 + Math.random() * 0.4;
+      this.color    = PETAL_COLORS[Math.floor(Math.random() * PETAL_COLORS.length)];
+      const types   = ["petal", "petal", "petal", "flower", "heart"];
+      this.type     = types[Math.floor(Math.random() * types.length)];
+      this.size     = 8 + Math.random() * 14;
     }
 
     update() {
       this.wobble   += this.wobbleSpd;
       this.rotation += this.rotSpeed;
-      this.x        += this.speedX + Math.sin(this.wobble) * 0.5;
-      this.y        -= this.speedY;
-      if (this.y < -50) this.reset();
+      this.x        += this.speedX + Math.sin(this.wobble) * 0.6;
+      this.y        += this.speedY;
+      if (this.y > H + 40) this.reset();
     }
 
     draw() {
@@ -64,85 +60,51 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
       ctx.rotate(this.rotation);
 
       switch (this.type) {
-        case "egg":    drawEgg(ctx, this.size, this.palette);  break;
-        case "bunny":  drawBunny(ctx, this.size);              break;
-        default:       drawStar(ctx, this.size * 0.5, this.palette[0]); break;
+        case "petal":  drawPetal(ctx, this.size, this.color); break;
+        case "flower": drawFlower(ctx, this.size, this.color); break;
+        case "heart":  drawHeart(ctx, this.size * 0.6, this.color); break;
       }
 
       ctx.restore();
     }
   }
 
-  // ── Egg ──
-  function drawEgg(ctx, s, [fill, stripe]) {
-    ctx.save();
-    // Body
+  function drawPetal(ctx, s, color) {
     ctx.beginPath();
-    ctx.ellipse(0, 0, s * 0.62, s, 0, 0, Math.PI * 2);
-    ctx.fillStyle = fill;
+    ctx.ellipse(0, 0, s * 0.45, s, 0, 0, Math.PI * 2);
+    ctx.fillStyle = color;
     ctx.fill();
-    // Stripe
-    ctx.save();
-    ctx.clip();
-    ctx.beginPath();
-    ctx.rect(-s, -s * 0.18, s * 2, s * 0.36);
-    ctx.fillStyle = stripe;
-    ctx.fill();
-    ctx.restore();
-    ctx.restore();
   }
 
-  // ── Bunny face ──
-  function drawBunny(ctx, s) {
-    ctx.fillStyle = "rgba(255,220,230,0.75)";
-    // Ears
+  function drawFlower(ctx, s, color) {
+    for (let i = 0; i < 5; i++) {
+      ctx.save();
+      ctx.rotate((i * Math.PI * 2) / 5);
+      ctx.beginPath();
+      ctx.ellipse(0, -s * 0.5, s * 0.3, s * 0.5, 0, 0, Math.PI * 2);
+      ctx.fillStyle = color;
+      ctx.fill();
+      ctx.restore();
+    }
     ctx.beginPath();
-    ctx.ellipse(-s * 0.35, -s * 1.1, s * 0.2, s * 0.5, -0.2, 0, Math.PI * 2);
+    ctx.arc(0, 0, s * 0.25, 0, Math.PI * 2);
+    ctx.fillStyle = "rgba(249,200,74,0.8)";
     ctx.fill();
-    ctx.beginPath();
-    ctx.ellipse( s * 0.35, -s * 1.1, s * 0.2, s * 0.5,  0.2, 0, Math.PI * 2);
-    ctx.fill();
-    // Inner ears
-    ctx.fillStyle = "rgba(240,160,200,0.6)";
-    ctx.beginPath();
-    ctx.ellipse(-s * 0.35, -s * 1.1, s * 0.1, s * 0.32, -0.2, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.beginPath();
-    ctx.ellipse( s * 0.35, -s * 1.1, s * 0.1, s * 0.32,  0.2, 0, Math.PI * 2);
-    ctx.fill();
-    // Head
-    ctx.fillStyle = "rgba(255,220,230,0.75)";
-    ctx.beginPath();
-    ctx.arc(0, 0, s, 0, Math.PI * 2);
-    ctx.fill();
-    // Eyes
-    ctx.fillStyle = "rgba(80,40,60,0.8)";
-    ctx.beginPath(); ctx.arc(-s * 0.3, -s * 0.15, s * 0.1, 0, Math.PI * 2); ctx.fill();
-    ctx.beginPath(); ctx.arc( s * 0.3, -s * 0.15, s * 0.1, 0, Math.PI * 2); ctx.fill();
-    // Nose
-    ctx.fillStyle = "rgba(230,100,150,0.8)";
-    ctx.beginPath(); ctx.arc(0, s * 0.15, s * 0.08, 0, Math.PI * 2); ctx.fill();
   }
 
-  // ── Star ──
-  function drawStar(ctx, s, color) {
+  function drawHeart(ctx, s, color) {
     ctx.fillStyle = color;
     ctx.beginPath();
-    for (let i = 0; i < 10; i++) {
-      const angle = (i * Math.PI) / 5;
-      const r = i % 2 === 0 ? s : s * 0.45;
-      i === 0
-        ? ctx.moveTo(Math.cos(angle) * r, Math.sin(angle) * r)
-        : ctx.lineTo(Math.cos(angle) * r, Math.sin(angle) * r);
-    }
+    ctx.moveTo(0, s * 0.3);
+    ctx.bezierCurveTo(-s, -s * 0.3, -s, -s, 0, -s * 0.3);
+    ctx.bezierCurveTo(s, -s, s, -s * 0.3, 0, s * 0.3);
     ctx.closePath();
     ctx.fill();
   }
 
-  // ── Init & loop ──
   function init() {
     resize();
-    const count = Math.min(45, Math.floor((W * H) / 20000));
+    const count = Math.min(50, Math.floor((W * H) / 18000));
     particles = Array.from({ length: count }, () => new Particle());
   }
 
