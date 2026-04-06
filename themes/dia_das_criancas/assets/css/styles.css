@@ -1,6 +1,6 @@
 /* ============================================================
-   Dia das Mães Theme — Caramelo Papelaria
-   Paleta: rosa, lavanda, dourado, branco
+   Dia das Crianças Theme — Caramelo Papelaria
+   Paleta: amarelo, laranja, verde, azul, rosa, roxo (vibrantes)
    ============================================================ */
 
 *, *::before, *::after {
@@ -10,21 +10,24 @@
 }
 
 :root {
-  --pink:        #f48fb1;
-  --pink-lt:     #fce4ec;
-  --pink-pale:   #fff0f5;
-  --rose:        #e91e8c;
-  --rose-lt:     #f8bbd9;
-  --lavender:    #ce93d8;
-  --lavender-lt: #f3e5f5;
-  --gold:        #f9c84a;
-  --gold-lt:     #fff8e1;
-  --cream:       #fffdf8;
-  --white:       #ffffff;
-  --text:        #5a2d4a;
-  --text-muted:  #a06080;
-  --shadow:      0 8px 40px rgba(244, 143, 177, 0.2);
-  --shadow-btn:  0 4px 18px rgba(233, 30, 140, 0.2);
+  --yellow:  #fdd835;
+  --orange:  #fb8c00;
+  --green:   #43a047;
+  --blue:    #1e88e5;
+  --pink:    #e91e8c;
+  --purple:  #8e24aa;
+  --yellow-lt: #fff9c4;
+  --orange-lt: #ffe0b2;
+  --green-lt:  #c8e6c9;
+  --blue-lt:   #bbdefb;
+  --pink-lt:   #fce4ec;
+  --purple-lt: #f3e5f5;
+  --cream:   #fffdf5;
+  --white:   #ffffff;
+  --text:    #3e2723;
+  --text-muted: #795548;
+  --shadow:      0 8px 40px rgba(251, 140, 0, 0.2);
+  --shadow-btn:  0 4px 18px rgba(251, 140, 0, 0.25);
   --radius-card: 32px;
   --radius-btn:  50px;
   --font-display: 'Pacifico', cursive;
@@ -55,57 +58,76 @@ body {
   z-index: 1;
   width: 100%;
   max-width: 420px;
-  background: rgba(255, 253, 248, 0.90);
+  background: rgba(255, 253, 245, 0.90);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 2px solid rgba(244, 143, 177, 0.5);
+  border: 2px solid rgba(251, 140, 0, 0.45);
   border-radius: var(--radius-card);
   box-shadow: var(--shadow);
   padding: 2rem 2rem 1.75rem;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  margin-top: 2rem;
+  margin-top: 3rem;
 }
 
-/* ── Flower Crown ── */
-.flower-crown {
+/* ── Balloons decoration ── */
+.balloons-deco {
   position: absolute;
-  top: -46px;
+  top: -72px;
   left: 50%;
   transform: translateX(-50%);
-  width: 160px;
-  height: 50px;
+  width: 180px;
+  height: 76px;
   z-index: 2;
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  gap: 4px;
+  gap: 6px;
 }
 
-.petal {
-  width: 22px;
-  height: 34px;
-  border-radius: 50% 50% 40% 40%;
+.balloon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.balloon:nth-child(1) .balloon-body { background: #e53935; width: 22px; height: 28px; border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; animation: bob1 2.2s ease-in-out infinite; }
+.balloon:nth-child(2) .balloon-body { background: var(--yellow);        width: 26px; height: 32px; border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; animation: bob2 1.9s ease-in-out infinite; }
+.balloon:nth-child(3) .balloon-body { background: var(--blue);          width: 22px; height: 28px; border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; animation: bob1 2.4s ease-in-out infinite; }
+.balloon:nth-child(4) .balloon-body { background: var(--green);         width: 20px; height: 26px; border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; animation: bob2 2.0s ease-in-out infinite; }
+
+.balloon-body {
   position: relative;
-  bottom: 0;
 }
 
-.petal:nth-child(1) { background: var(--pink);      transform: rotate(-30deg) translateY(4px); }
-.petal:nth-child(2) { background: var(--lavender);  transform: rotate(-15deg) translateY(2px); }
-.petal:nth-child(3) { background: var(--rose-lt);   transform: rotate(0deg);                   width: 26px; height: 38px; }
-.petal:nth-child(4) { background: var(--lavender);  transform: rotate(15deg) translateY(2px);  }
-.petal:nth-child(5) { background: var(--pink);      transform: rotate(30deg) translateY(4px);  }
-
-.petal::after {
+.balloon-body::after {
   content: '';
   position: absolute;
-  width: 60%;
-  height: 60%;
-  background: rgba(255,255,255,0.4);
-  border-radius: 50%;
-  top: 15%;
-  left: 20%;
+  width: 5px;
+  height: 6px;
+  background: inherit;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  clip-path: polygon(50% 100%, 0 0, 100% 0);
+}
+
+.balloon-string {
+  width: 1px;
+  height: 18px;
+  background: rgba(80,40,20,0.4);
+  margin-top: 0;
+}
+
+@keyframes bob1 {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-5px); }
+}
+
+@keyframes bob2 {
+  0%, 100% { transform: translateY(-3px); }
+  50%       { transform: translateY(3px); }
 }
 
 header {
@@ -128,28 +150,29 @@ header {
   border-radius: 50%;
   object-fit: cover;
   border: 3px solid var(--white);
-  box-shadow: 0 0 0 3px var(--pink), 0 0 0 6px var(--pink-lt);
+  box-shadow: 0 0 0 3px var(--orange), 0 0 0 6px var(--yellow-lt);
   position: relative;
   z-index: 1;
 }
 
-.floral-ring {
+.rainbow-ring {
   position: absolute;
   inset: -6px;
   border-radius: 50%;
   background: conic-gradient(
+    var(--yellow),
+    var(--orange),
     var(--pink),
-    var(--gold),
-    var(--lavender),
-    var(--rose-lt),
-    var(--pink-lt),
-    var(--pink)
+    var(--purple),
+    var(--blue),
+    var(--green),
+    var(--yellow)
   );
-  animation: spin-floral 8s linear infinite;
+  animation: spin-rainbow 6s linear infinite;
   z-index: 0;
 }
 
-@keyframes spin-floral {
+@keyframes spin-rainbow {
   to { transform: rotate(360deg); }
 }
 
@@ -191,11 +214,11 @@ h1 {
   border: 2px solid transparent;
 }
 
-.link-item:nth-child(1) { border-color: var(--pink);      }
-.link-item:nth-child(2) { border-color: var(--lavender);  }
-.link-item:nth-child(3) { border-color: var(--rose-lt);   }
-.link-item:nth-child(4) { border-color: var(--gold);      }
-.link-item:nth-child(5) { border-color: var(--pink-lt);   }
+.link-item:nth-child(1) { border-color: var(--orange);  }
+.link-item:nth-child(2) { border-color: var(--blue);    }
+.link-item:nth-child(3) { border-color: var(--green);   }
+.link-item:nth-child(4) { border-color: var(--pink);    }
+.link-item:nth-child(5) { border-color: var(--purple);  }
 
 .link-item::before {
   content: '';
@@ -206,16 +229,16 @@ h1 {
   border-radius: inherit;
 }
 
-.link-item:nth-child(1)::before { background: var(--pink-pale);    }
-.link-item:nth-child(2)::before { background: var(--lavender-lt);  }
-.link-item:nth-child(3)::before { background: var(--pink-pale);    }
-.link-item:nth-child(4)::before { background: var(--gold-lt);      }
-.link-item:nth-child(5)::before { background: var(--pink-lt);      }
+.link-item:nth-child(1)::before { background: var(--orange-lt); }
+.link-item:nth-child(2)::before { background: var(--blue-lt);   }
+.link-item:nth-child(3)::before { background: var(--green-lt);  }
+.link-item:nth-child(4)::before { background: var(--pink-lt);   }
+.link-item:nth-child(5)::before { background: var(--purple-lt); }
 
 .link-item:hover,
 .link-item:focus {
   transform: translateY(-3px) scale(1.01);
-  box-shadow: 0 10px 28px rgba(233, 30, 140, 0.18);
+  box-shadow: 0 10px 28px rgba(251, 140, 0, 0.22);
   outline: none;
 }
 
@@ -261,7 +284,7 @@ footer {
 .message {
   font-family: var(--font-display);
   font-size: 1rem;
-  color: var(--rose);
+  color: var(--orange);
   letter-spacing: 0.02em;
 }
 
@@ -272,4 +295,4 @@ footer small {
 
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--pink-lt); border-radius: 4px; }
+::-webkit-scrollbar-thumb { background: var(--yellow-lt); border-radius: 4px; }

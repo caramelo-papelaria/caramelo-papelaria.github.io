@@ -1,6 +1,6 @@
 /* ============================================================
-   Dia das Mães Theme — Caramelo Papelaria
-   Paleta: rosa, lavanda, dourado, branco
+   Natal Theme — Caramelo Papelaria
+   Paleta: vermelho, verde escuro, dourado, branco, neve
    ============================================================ */
 
 *, *::before, *::after {
@@ -10,21 +10,21 @@
 }
 
 :root {
-  --pink:        #f48fb1;
-  --pink-lt:     #fce4ec;
-  --pink-pale:   #fff0f5;
-  --rose:        #e91e8c;
-  --rose-lt:     #f8bbd9;
-  --lavender:    #ce93d8;
-  --lavender-lt: #f3e5f5;
-  --gold:        #f9c84a;
+  --red:         #c62828;
+  --red-lt:      #ef9a9a;
+  --red-pale:    #fff5f5;
+  --green:       #1b5e20;
+  --green-lt:    #a5d6a7;
+  --green-pale:  #e8f5e9;
+  --gold:        #f9a825;
   --gold-lt:     #fff8e1;
+  --snow:        #e3f2fd;
   --cream:       #fffdf8;
   --white:       #ffffff;
-  --text:        #5a2d4a;
-  --text-muted:  #a06080;
-  --shadow:      0 8px 40px rgba(244, 143, 177, 0.2);
-  --shadow-btn:  0 4px 18px rgba(233, 30, 140, 0.2);
+  --text:        #1b2a1b;
+  --text-muted:  #546e54;
+  --shadow:      0 8px 40px rgba(27, 94, 32, 0.18);
+  --shadow-btn:  0 4px 18px rgba(198, 40, 40, 0.2);
   --radius-card: 32px;
   --radius-btn:  50px;
   --font-display: 'Pacifico', cursive;
@@ -58,54 +58,54 @@ body {
   background: rgba(255, 253, 248, 0.90);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 2px solid rgba(244, 143, 177, 0.5);
+  border: 2px solid rgba(27, 94, 32, 0.35);
   border-radius: var(--radius-card);
   box-shadow: var(--shadow);
   padding: 2rem 2rem 1.75rem;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  margin-top: 2rem;
+  margin-top: 2.5rem;
 }
 
-/* ── Flower Crown ── */
-.flower-crown {
+/* ── Santa Hat ── */
+.santa-hat {
   position: absolute;
-  top: -46px;
+  top: -62px;
   left: 50%;
   transform: translateX(-50%);
-  width: 160px;
-  height: 50px;
   z-index: 2;
+  width: 80px;
   display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  gap: 4px;
+  flex-direction: column;
+  align-items: center;
 }
 
-.petal {
-  width: 22px;
-  height: 34px;
-  border-radius: 50% 50% 40% 40%;
-  position: relative;
-  bottom: 0;
+.hat-brim {
+  width: 80px;
+  height: 16px;
+  background: var(--white);
+  border-radius: 8px;
+  border: 2px solid var(--red-lt);
 }
 
-.petal:nth-child(1) { background: var(--pink);      transform: rotate(-30deg) translateY(4px); }
-.petal:nth-child(2) { background: var(--lavender);  transform: rotate(-15deg) translateY(2px); }
-.petal:nth-child(3) { background: var(--rose-lt);   transform: rotate(0deg);                   width: 26px; height: 38px; }
-.petal:nth-child(4) { background: var(--lavender);  transform: rotate(15deg) translateY(2px);  }
-.petal:nth-child(5) { background: var(--pink);      transform: rotate(30deg) translateY(4px);  }
+.hat-body {
+  width: 0;
+  height: 0;
+  border-left: 32px solid transparent;
+  border-right: 32px solid transparent;
+  border-bottom: 50px solid var(--red);
+  transform: rotate(180deg);
+  margin-top: -2px;
+}
 
-.petal::after {
-  content: '';
-  position: absolute;
-  width: 60%;
-  height: 60%;
-  background: rgba(255,255,255,0.4);
+.hat-pom {
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
-  top: 15%;
-  left: 20%;
+  background: var(--white);
+  margin-top: -6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
 }
 
 header {
@@ -128,28 +128,28 @@ header {
   border-radius: 50%;
   object-fit: cover;
   border: 3px solid var(--white);
-  box-shadow: 0 0 0 3px var(--pink), 0 0 0 6px var(--pink-lt);
+  box-shadow: 0 0 0 3px var(--green), 0 0 0 6px var(--green-lt);
   position: relative;
   z-index: 1;
 }
 
-.floral-ring {
+.xmas-ring {
   position: absolute;
   inset: -6px;
   border-radius: 50%;
   background: conic-gradient(
-    var(--pink),
+    var(--red),
     var(--gold),
-    var(--lavender),
-    var(--rose-lt),
-    var(--pink-lt),
-    var(--pink)
+    var(--green),
+    var(--green-lt),
+    var(--red-lt),
+    var(--red)
   );
-  animation: spin-floral 8s linear infinite;
+  animation: spin-xmas 8s linear infinite;
   z-index: 0;
 }
 
-@keyframes spin-floral {
+@keyframes spin-xmas {
   to { transform: rotate(360deg); }
 }
 
@@ -191,11 +191,11 @@ h1 {
   border: 2px solid transparent;
 }
 
-.link-item:nth-child(1) { border-color: var(--pink);      }
-.link-item:nth-child(2) { border-color: var(--lavender);  }
-.link-item:nth-child(3) { border-color: var(--rose-lt);   }
-.link-item:nth-child(4) { border-color: var(--gold);      }
-.link-item:nth-child(5) { border-color: var(--pink-lt);   }
+.link-item:nth-child(1) { border-color: var(--red);      }
+.link-item:nth-child(2) { border-color: var(--green);    }
+.link-item:nth-child(3) { border-color: var(--gold);     }
+.link-item:nth-child(4) { border-color: var(--green-lt); }
+.link-item:nth-child(5) { border-color: var(--red-lt);   }
 
 .link-item::before {
   content: '';
@@ -206,16 +206,16 @@ h1 {
   border-radius: inherit;
 }
 
-.link-item:nth-child(1)::before { background: var(--pink-pale);    }
-.link-item:nth-child(2)::before { background: var(--lavender-lt);  }
-.link-item:nth-child(3)::before { background: var(--pink-pale);    }
-.link-item:nth-child(4)::before { background: var(--gold-lt);      }
-.link-item:nth-child(5)::before { background: var(--pink-lt);      }
+.link-item:nth-child(1)::before { background: var(--red-pale);   }
+.link-item:nth-child(2)::before { background: var(--green-pale); }
+.link-item:nth-child(3)::before { background: var(--gold-lt);    }
+.link-item:nth-child(4)::before { background: var(--green-pale); }
+.link-item:nth-child(5)::before { background: var(--red-pale);   }
 
 .link-item:hover,
 .link-item:focus {
   transform: translateY(-3px) scale(1.01);
-  box-shadow: 0 10px 28px rgba(233, 30, 140, 0.18);
+  box-shadow: 0 10px 28px rgba(27, 94, 32, 0.2);
   outline: none;
 }
 
@@ -261,7 +261,7 @@ footer {
 .message {
   font-family: var(--font-display);
   font-size: 1rem;
-  color: var(--rose);
+  color: var(--green);
   letter-spacing: 0.02em;
 }
 
@@ -272,4 +272,4 @@ footer small {
 
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--pink-lt); border-radius: 4px; }
+::-webkit-scrollbar-thumb { background: var(--green-lt); border-radius: 4px; }
