@@ -9,12 +9,15 @@
 set -euo pipefail
 
 THEME="${1:-}"
-PYTHON=".venv/bin/python"
 CONFIG="config.yml"
 OUTPUT="docs"
 
-# ── Check virtual environment ──────────────────────────────────────────────
-if [ ! -f "$PYTHON" ]; then
+# Resolve python path for both Unix (.venv/bin) and Windows (.venv/Scripts)
+if [ -f ".venv/bin/python" ]; then
+  PYTHON=".venv/bin/python"
+elif [ -f ".venv/Scripts/python.exe" ]; then
+  PYTHON=".venv/Scripts/python.exe"
+else
   echo "❌  Virtual environment not found. Run: python -m venv .venv && pip install -r requirements.txt"
   exit 1
 fi

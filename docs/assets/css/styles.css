@@ -1,6 +1,6 @@
 /* ============================================================
-   Dia das Mães Theme — Caramelo Papelaria
-   Paleta: rosa, lavanda, dourado, branco
+   Dia dos Namorados Theme — Caramelo Papelaria
+   Paleta: rose, pink, gold, cream
    ============================================================ */
 
 *, *::before, *::after {
@@ -10,27 +10,29 @@
 }
 
 :root {
-  --pink:        #f48fb1;
-  --pink-lt:     #fce4ec;
-  --pink-pale:   #fff0f5;
-  --rose:        #e91e8c;
-  --rose-lt:     #f8bbd9;
-  --lavender:    #ce93d8;
-  --lavender-lt: #f3e5f5;
-  --gold:        #f9c84a;
-  --gold-lt:     #fff8e1;
-  --cream:       #fffdf8;
-  --white:       #ffffff;
-  --text:        #5a2d4a;
-  --text-muted:  #a06080;
-  --shadow:      0 8px 40px rgba(244, 143, 177, 0.2);
-  --shadow-btn:  0 4px 18px rgba(233, 30, 140, 0.2);
+  --rose:       #e8315a;
+  --rose-dark:  #c01840;
+  --rose-lt:    #ff6b8a;
+  --rose-pale:  #ffe8ee;
+  --pink:       #ffb3c6;
+  --pink-lt:    #ffd0dc;
+  --pink-pale:  #fff0f4;
+  --gold:       #f5c842;
+  --gold-lt:    #fde98a;
+  --gold-pale:  #fffbe8;
+  --cream:      #fff8f9;
+  --white:      #ffffff;
+  --text:       #3d1020;
+  --text-muted: #9a4060;
+  --shadow:     0 8px 40px rgba(232, 49, 90, 0.18);
+  --shadow-btn: 0 4px 18px rgba(255, 107, 138, 0.32);
   --radius-card: 32px;
   --radius-btn:  50px;
   --font-display: 'Pacifico', cursive;
   --font-body:    'Quicksand', system-ui, sans-serif;
 }
 
+/* ── Canvas ── */
 #bg-canvas {
   position: fixed;
   inset: 0;
@@ -39,6 +41,7 @@
   z-index: 0;
 }
 
+/* ── Layout ── */
 body {
   min-height: 100vh;
   display: flex;
@@ -50,64 +53,45 @@ body {
   overflow-x: hidden;
 }
 
+/* ── Card ── */
 .card {
   position: relative;
   z-index: 1;
   width: 100%;
   max-width: 420px;
-  background: rgba(255, 253, 248, 0.90);
+  background: rgba(255, 248, 249, 0.88);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 2px solid rgba(244, 143, 177, 0.5);
+  border: 2px solid rgba(232, 49, 90, 0.3);
   border-radius: var(--radius-card);
   box-shadow: var(--shadow);
-  padding: 2rem 2rem 1.75rem;
+  padding: 2.5rem 2rem 1.75rem;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  margin-top: 2rem;
+  margin-top: 1rem;
 }
 
-/* ── Flower Crown ── */
-.flower-crown {
+/* ── Badge ── */
+.badge {
   position: absolute;
-  top: -46px;
+  top: -18px;
   left: 50%;
   transform: translateX(-50%);
-  width: 160px;
-  height: 50px;
-  z-index: 2;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  gap: 4px;
+  background: linear-gradient(135deg, var(--rose), var(--rose-lt));
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.35rem 1.1rem;
+  border-radius: 50px;
+  white-space: nowrap;
+  box-shadow: 0 3px 12px rgba(232, 49, 90, 0.35);
 }
 
-.petal {
-  width: 22px;
-  height: 34px;
-  border-radius: 50% 50% 40% 40%;
-  position: relative;
-  bottom: 0;
-}
-
-.petal:nth-child(1) { background: var(--pink);      transform: rotate(-30deg) translateY(4px); }
-.petal:nth-child(2) { background: var(--lavender);  transform: rotate(-15deg) translateY(2px); }
-.petal:nth-child(3) { background: var(--rose-lt);   transform: rotate(0deg);                   width: 26px; height: 38px; }
-.petal:nth-child(4) { background: var(--lavender);  transform: rotate(15deg) translateY(2px);  }
-.petal:nth-child(5) { background: var(--pink);      transform: rotate(30deg) translateY(4px);  }
-
-.petal::after {
-  content: '';
-  position: absolute;
-  width: 60%;
-  height: 60%;
-  background: rgba(255,255,255,0.4);
-  border-radius: 50%;
-  top: 15%;
-  left: 20%;
-}
-
+/* ── Header ── */
 header {
   display: flex;
   flex-direction: column;
@@ -128,28 +112,28 @@ header {
   border-radius: 50%;
   object-fit: cover;
   border: 3px solid var(--white);
-  box-shadow: 0 0 0 3px var(--pink), 0 0 0 6px var(--pink-lt);
+  box-shadow: 0 0 0 3px var(--rose), 0 0 0 6px var(--pink-lt);
   position: relative;
   z-index: 1;
 }
 
-.floral-ring {
+.heart-ring {
   position: absolute;
   inset: -6px;
   border-radius: 50%;
   background: conic-gradient(
-    var(--pink),
+    var(--rose),
     var(--gold),
-    var(--lavender),
     var(--rose-lt),
-    var(--pink-lt),
-    var(--pink)
+    var(--pink),
+    var(--gold-lt),
+    var(--rose)
   );
-  animation: spin-floral 8s linear infinite;
+  animation: spin-heart 6s linear infinite;
   z-index: 0;
 }
 
-@keyframes spin-floral {
+@keyframes spin-heart {
   to { transform: rotate(360deg); }
 }
 
@@ -167,6 +151,7 @@ h1 {
   font-weight: 500;
 }
 
+/* ── Links ── */
 .links {
   display: flex;
   flex-direction: column;
@@ -191,11 +176,11 @@ h1 {
   border: 2px solid transparent;
 }
 
-.link-item:nth-child(1) { border-color: var(--pink);      }
-.link-item:nth-child(2) { border-color: var(--lavender);  }
-.link-item:nth-child(3) { border-color: var(--rose-lt);   }
-.link-item:nth-child(4) { border-color: var(--gold);      }
-.link-item:nth-child(5) { border-color: var(--pink-lt);   }
+.link-item:nth-child(1) { border-color: var(--rose);    }
+.link-item:nth-child(2) { border-color: var(--pink);    }
+.link-item:nth-child(3) { border-color: var(--gold);    }
+.link-item:nth-child(4) { border-color: var(--rose-lt); }
+.link-item:nth-child(5) { border-color: var(--pink-lt); }
 
 .link-item::before {
   content: '';
@@ -206,16 +191,16 @@ h1 {
   border-radius: inherit;
 }
 
-.link-item:nth-child(1)::before { background: var(--pink-pale);    }
-.link-item:nth-child(2)::before { background: var(--lavender-lt);  }
-.link-item:nth-child(3)::before { background: var(--pink-pale);    }
-.link-item:nth-child(4)::before { background: var(--gold-lt);      }
-.link-item:nth-child(5)::before { background: var(--pink-lt);      }
+.link-item:nth-child(1)::before { background: var(--rose-pale);  }
+.link-item:nth-child(2)::before { background: var(--pink-pale);  }
+.link-item:nth-child(3)::before { background: var(--gold-pale);  }
+.link-item:nth-child(4)::before { background: var(--rose-pale);  }
+.link-item:nth-child(5)::before { background: var(--pink-pale);  }
 
 .link-item:hover,
 .link-item:focus {
   transform: translateY(-3px) scale(1.01);
-  box-shadow: 0 10px 28px rgba(233, 30, 140, 0.18);
+  box-shadow: 0 10px 28px rgba(232, 49, 90, 0.22);
   outline: none;
 }
 
@@ -224,11 +209,17 @@ h1 {
   opacity: 1;
 }
 
-.link-icon {
+.link-deco {
   font-size: 1rem;
+  color: var(--rose);
   position: relative;
   z-index: 1;
   flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.link-item:hover .link-deco {
+  transform: scale(1.3);
 }
 
 .link-label {
@@ -251,6 +242,7 @@ h1 {
   transform: translateX(3px);
 }
 
+/* ── Footer ── */
 footer {
   text-align: center;
   display: flex;
@@ -270,6 +262,7 @@ footer small {
   color: var(--text-muted);
 }
 
+/* ── Scrollbar ── */
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--pink-lt); border-radius: 4px; }

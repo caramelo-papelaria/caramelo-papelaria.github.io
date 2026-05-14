@@ -2,7 +2,6 @@ import argparse
 import os
 import shutil
 import sys
-from datetime import date
 
 import yaml
 from jinja2 import Environment, FileSystemLoader, TemplateNotFound
@@ -91,35 +90,8 @@ def generate_site(config_path: str, theme_override: str | None, output_dir: str)
     # Generate HTML file
     output_html = template.render(config=config)
     output_html_path = os.path.join(output_dir, "index.html")
-    with open(output_html_path, "w") as fh:
+    with open(output_html_path, "w", encoding="utf-8") as fh:
         fh.write(output_html)
-
-    # Generate robots.txt
-    site_url = config["meta"]["siteUrl"].rstrip("/")
-    robots_path = os.path.join(output_dir, "robots.txt")
-    with open(robots_path, "w") as fh:
-        fh.write(f"User-agent: *\nAllow: /\nSitemap: {site_url}/sitemap.xml\n")
-
-    # Generate sitemap.xml
-    sitemap_path = os.path.join(output_dir, "sitemap.xml")
-    lastmod = date.today().isoformat()
-    with open(sitemap_path, "w") as fh:
-        fh.write(
-            '<?xml version="1.0" encoding="UTF-8"?>\n'
-            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
-            "  <url>\n"
-            f"    <loc>{site_url}/</loc>\n"
-            f"    <lastmod>{lastmod}</lastmod>\n"
-            "    <changefreq>monthly</changefreq>\n"
-            "    <priority>1.0</priority>\n"
-            "  </url>\n"
-            "</urlset>\n"
-        )
-
-    # Create .nojekyll to prevent GitHub Pages from running Jekyll
-    nojekyll_path = os.path.join(output_dir, ".nojekyll")
-    with open(nojekyll_path, "w"):
-        pass
 
     # Copy assets folder to output directory
     assets_source = os.path.join(theme_dir, "assets")
