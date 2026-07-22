@@ -2,23 +2,22 @@
 const yearEl = document.querySelector(".year");
 if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-// ── Animated background: footballs & confetti (clima de Copa) ──
+// ── Animated background: floating paw prints, ties & stars ──
 (function () {
   const canvas = document.getElementById("bg-canvas");
   if (!canvas) return;
   const ctx = canvas.getContext("2d");
 
-  const BG_TOP    = "#e6f7ec";
-  const BG_BOTTOM = "#fffae0";
+  const BG_TOP    = "#fff9f0";
+  const BG_BOTTOM = "#e4eef7";
 
-  // Verde, amarelo e azul da seleção brasileira
-  const CONFETTI_COLORS = [
-    "rgba(0,  156, 59,  0.75)",
-    "rgba(255, 223, 0,   0.80)",
-    "rgba(0,  39,  118, 0.70)",
-    "rgba(46, 194, 126, 0.70)",
-    "rgba(255, 240, 107, 0.75)",
-    "rgba(30, 79,  196, 0.65)",
+  const COLORS = [
+    "rgba(232, 156, 43, 0.62)",  // caramelo
+    "rgba(244, 189, 99, 0.58)",  // caramelo claro
+    "rgba(47,  93,  138, 0.55)", // azul paizão
+    "rgba(91,  139, 184, 0.55)", // azul claro
+    "rgba(127, 191, 90,  0.55)", // verde
+    "rgba(245, 200, 66,  0.62)", // dourado
   ];
 
   let W, H, particles;
@@ -39,16 +38,15 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
       this.wobble    = Math.random() * Math.PI * 2;
       this.wobbleSpd = 0.008 + Math.random() * 0.014;
       this.rotation  = Math.random() * Math.PI * 2;
-      this.rotSpeed  = (Math.random() - 0.5) * 0.04;
+      this.rotSpeed  = (Math.random() - 0.5) * 0.025;
       this.alpha     = 0.45 + Math.random() * 0.45;
-      this.color     = CONFETTI_COLORS[Math.floor(Math.random() * CONFETTI_COLORS.length)];
+      this.color     = COLORS[Math.floor(Math.random() * COLORS.length)];
 
-      // Maioria confete, alguns bola de futebol e estrelas
-      const types = ["confetti", "confetti", "confetti", "ball", "star"];
+      const types = ["paw", "paw", "paw", "tie", "star"];
       this.type = types[Math.floor(Math.random() * types.length)];
-      this.size = this.type === "ball"
-        ? 9 + Math.random() * 9
-        : 6 + Math.random() * 9;
+      this.size = this.type === "star"
+        ? 6 + Math.random() * 8
+        : 11 + Math.random() * 16;
     }
 
     update() {
@@ -65,55 +63,64 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
       ctx.translate(this.x, this.y);
       ctx.rotate(this.rotation);
 
-      if (this.type === "ball") {
-        drawBall(ctx, this.size);
-      } else if (this.type === "star") {
-        drawStar(ctx, this.size, this.color);
-      } else {
-        drawConfetti(ctx, this.size, this.color);
-      }
+      if (this.type === "paw")      drawPaw(ctx, this.size, this.color);
+      else if (this.type === "tie") drawTie(ctx, this.size, this.color);
+      else                          drawStar(ctx, this.size, this.color);
 
       ctx.restore();
     }
   }
 
-  // ── Bola de futebol ──
-  function drawBall(ctx, s) {
-    ctx.fillStyle = "#ffffff";
-    ctx.strokeStyle = "rgba(13, 43, 22, 0.55)";
-    ctx.lineWidth = Math.max(1, s * 0.08);
+  // ── Paw print (patinha do caramelo) ──
+  function drawPaw(ctx, s, color) {
+    ctx.fillStyle = color;
+    // main pad
     ctx.beginPath();
-    ctx.arc(0, 0, s, 0, Math.PI * 2);
+    ctx.ellipse(0, s * 0.35, s * 0.4, s * 0.34, 0, 0, Math.PI * 2);
     ctx.fill();
-    ctx.stroke();
+    // toes
+    const toes = [
+      [-s * 0.34, -s * 0.15, s * 0.15],
+      [-s * 0.11, -s * 0.32, s * 0.16],
+      [ s * 0.11, -s * 0.32, s * 0.16],
+      [ s * 0.34, -s * 0.15, s * 0.15],
+    ];
+    toes.forEach(([tx, ty, tr]) => {
+      ctx.beginPath();
+      ctx.ellipse(tx, ty, tr, tr * 1.2, 0, 0, Math.PI * 2);
+      ctx.fill();
+    });
+  }
 
-    // Pentágono central preto
-    ctx.fillStyle = "rgba(13, 43, 22, 0.8)";
+  // ── Tie (gravatinha) ──
+  function drawTie(ctx, s, color) {
+    ctx.fillStyle = color;
+    // knot
     ctx.beginPath();
-    for (let i = 0; i < 5; i++) {
-      const a = (i * 2 * Math.PI) / 5 - Math.PI / 2;
-      const r = s * 0.42;
-      i === 0
-        ? ctx.moveTo(Math.cos(a) * r, Math.sin(a) * r)
-        : ctx.lineTo(Math.cos(a) * r, Math.sin(a) * r);
-    }
+    ctx.moveTo(-s * 0.22, -s * 0.5);
+    ctx.lineTo( s * 0.22, -s * 0.5);
+    ctx.lineTo( s * 0.16, -s * 0.24);
+    ctx.lineTo(-s * 0.16, -s * 0.24);
+    ctx.closePath();
+    ctx.fill();
+    // body
+    ctx.beginPath();
+    ctx.moveTo(-s * 0.16, -s * 0.24);
+    ctx.lineTo( s * 0.16, -s * 0.24);
+    ctx.lineTo( s * 0.3,   s * 0.5);
+    ctx.lineTo( 0,         s * 0.7);
+    ctx.lineTo(-s * 0.3,   s * 0.5);
     ctx.closePath();
     ctx.fill();
   }
 
-  // ── Confete (retângulo) ──
-  function drawConfetti(ctx, s, color) {
-    ctx.fillStyle = color;
-    ctx.fillRect(-s * 0.5, -s * 0.3, s, s * 0.6);
-  }
-
-  // ── Estrela (5 pontas) ──
+  // ── Star (4/8-point) ──
   function drawStar(ctx, s, color) {
     ctx.fillStyle = color;
     ctx.beginPath();
-    for (let i = 0; i < 10; i++) {
-      const angle = (i * Math.PI) / 5 - Math.PI / 2;
-      const r = i % 2 === 0 ? s : s * 0.45;
+    for (let i = 0; i < 8; i++) {
+      const angle = (i * Math.PI) / 4;
+      const r = i % 2 === 0 ? s : s * 0.38;
       i === 0
         ? ctx.moveTo(Math.cos(angle) * r, Math.sin(angle) * r)
         : ctx.lineTo(Math.cos(angle) * r, Math.sin(angle) * r);
@@ -125,7 +132,7 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
   // ── Init & loop ──
   function init() {
     resize();
-    const count = Math.min(55, Math.floor((W * H) / 17000));
+    const count = Math.min(50, Math.floor((W * H) / 18000));
     particles = Array.from({ length: count }, () => new Particle());
   }
 
