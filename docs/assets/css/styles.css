@@ -84,7 +84,7 @@ body {
   flex-direction: column;
   gap: 1.5rem;
   margin-top: 1rem;
-  overflow: hidden;
+  /* sem overflow:hidden aqui — cortaria a tarja, que fica em top:-18px */
 }
 
 /* margem vermelha da folha */
@@ -106,10 +106,12 @@ body {
   bottom: 0;
   left: 0;
   width: 2rem;
+  border-radius: var(--radius-card) 0 0 var(--radius-card);
   background-image: radial-gradient(
-    circle at center,
-    rgba(122, 116, 88, 0.22) 0 4.5px,
-    transparent 4.5px
+    circle at 50% 50%,
+    rgba(122, 116, 88, 0.26) 0 5.5px,
+    rgba(122, 116, 88, 0.10) 5.5px 6.5px,
+    transparent 6.5px
   );
   background-size: 100% 78px;
   background-position: 0 34px;
